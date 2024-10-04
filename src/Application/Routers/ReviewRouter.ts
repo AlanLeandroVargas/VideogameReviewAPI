@@ -9,8 +9,8 @@ const reviewServices = new ReviewServices(reviewRepository);
 const reviewController = new ReviewController(reviewServices);
 reviewRouter.post('/review', reviewController.createReview);
 reviewRouter.delete('/review', reviewController.deleteReview);
-reviewRouter.get('/review/:reviewId', reviewController.findReviewById);
-reviewRouter.get('/review/:author', reviewController.findReviewByAuthor);
-reviewRouter.get('/review/:videogameId', reviewController.findReviewByVideogameId);
+reviewRouter.get('/review/id/:reviewId', reviewController.findReviewById);
+reviewRouter.get('/review/author/:author', reviewController.findReviewByAuthor);
+reviewRouter.get('/review/videogame/:videogameId', reviewController.findReviewByVideogameId);
 
 export default reviewRouter;

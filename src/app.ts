@@ -2,9 +2,17 @@ import express from 'express';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import MongoDB from './Infrastructure/Persistence/MongoDB';
+import userRouter from './Application/Routers/UserRouter';
+import videogameRouter from './Application/Routers/VideogameRouter';
+import reviewRouter from './Application/Routers/ReviewRouter';
+import errorHandler from './Application/Middleware/ErrorHandler';
 dotenv.config();
 MongoDB();
 const app = express();
 app.use(morgan('dev'));
-
+app.use(express.json());
+app.use('/api', userRouter);
+app.use('/api', videogameRouter);
+app.use('/api', reviewRouter);
+app.use(errorHandler);
 export default app;

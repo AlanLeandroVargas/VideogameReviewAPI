@@ -8,8 +8,8 @@ const userServices = new UserServices(userRepository);
 const userController = new UserController(userServices);
 userRouter.post('/user', userController.createUser);
 userRouter.delete('/user', userController.deleteUser);
-userRouter.get('/user/:userId', userController.findUserById);
-userRouter.get('/user/:username', userController.findUserByUsername);
+userRouter.get('/user/id/:userId', userController.findUserById);
+userRouter.get('/user/username/:username', userController.findUserByUsername);
 userRouter.post('/user/login', userController.login);
 
 export default userRouter;

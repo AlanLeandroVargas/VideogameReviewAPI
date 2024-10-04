@@ -9,7 +9,7 @@ const videogameController = new VideogameController(videogameServices);
 
 videogameRouter.post('/videogame', videogameController.createVideogame);
 videogameRouter.delete('/videogame', videogameController.deleteVideogame);
-videogameRouter.get('/videogame/:videogameId', videogameController.findVideogameById);
-videogameRouter.get('/videogame/:videogameName', videogameController.findVideogameByName);
+videogameRouter.get('/videogame/id/:videogameId', videogameController.findVideogameById);
+videogameRouter.get('/videogame/name/:videogameName', videogameController.findVideogameByName);
 
 export default videogameRouter;
