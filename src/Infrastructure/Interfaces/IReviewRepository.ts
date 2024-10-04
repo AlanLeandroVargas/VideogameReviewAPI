@@ -6,7 +6,7 @@ interface IReviewRepository{
     createReview(createReviewRequest: CreateReviewRequest): Promise<Review>;
     deleteReview(id: mongoose.Types.ObjectId): Promise<void>;
     findReviewById(id: mongoose.Types.ObjectId): Promise<Review>;
-    findReviewByAuthor(id: mongoose.Types.ObjectId): Promise<Review>;
-    findReviewByVideogameId(id: mongoose.Types.ObjectId): Promise<Review>
+    findReviewByAuthor(id: mongoose.Types.ObjectId): Promise<Array<Review>>;
+    findReviewByVideogameId(id: mongoose.Types.ObjectId): Promise<Array<Review>>
 }
 export default IReviewRepository;

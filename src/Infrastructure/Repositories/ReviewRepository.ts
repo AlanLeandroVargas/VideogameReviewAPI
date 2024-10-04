@@ -20,13 +20,13 @@ class ReviewRepository implements IReviewRepository {
         if (!retrievedReview) throw new NotFoundException('Reseña no encontrado');
         return retrievedReview;
     }
-    async findReviewByAuthor(id: Types.ObjectId): Promise<Review> {
-        const retrievedReview = await reviewModel.findOne({ author: id });
+    async findReviewByAuthor(id: Types.ObjectId): Promise<Array<Review>> {
+        const retrievedReview = await reviewModel.find({ author: id });
         if (!retrievedReview) throw new NotFoundException('Reseña no encontrado');
         return retrievedReview;
     }
-    async findReviewByVideogameId(id: Types.ObjectId): Promise<Review> {
-        const retrievedReview = await reviewModel.findOne({ videogame: id });
+    async findReviewByVideogameId(id: Types.ObjectId): Promise<Array<Review>> {
+        const retrievedReview = await reviewModel.find({ videogame: id });
         if (!retrievedReview) throw new NotFoundException('Reseña no encontrado');
         return retrievedReview;
     }
