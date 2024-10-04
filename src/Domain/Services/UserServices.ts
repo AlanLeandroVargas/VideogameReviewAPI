@@ -3,6 +3,13 @@ import CreateUserRequest from "../../Application/Requests/CreateUserRequest";
 import User from "../Entities/User";
 import IUserServices from "../Interfaces/IUserServices";
 import IUserRepository from "../../Infrastructure/Interfaces/IUserRepository";
+import LoginRequest from "../../Application/Requests/LoginRequest";
+import ValidationException from "../../Application/Exceptions/ValidationException";
+import jwt from 'jsonwebtoken';
+import LoginResponse from "../../Application/Responses/LoginResponse";
+
+const JWT_SECRET = 'videogame_review_web_site';
+
 
 class UserServices implements IUserServices{
     private userRepository: IUserRepository;
@@ -23,6 +30,15 @@ class UserServices implements IUserServices{
     async findUserByUsername(username: string): Promise<User> {
         const retrievedUser = await this.userRepository.findUserByUsername(username);
         return retrievedUser;
+    }
+    async login(loginRequest: LoginRequest): Promise<LoginResponse>{
+        const retrievedUser = await this.userRepository.findUserByUsername(loginRequest.username);
+        const isMatch = await retrievedUser.comparePassword(loginRequest.password);
+        if(!isMatch){throw new ValidationException("Credenciales invalidas")};
+        const payload = { id: retrievedUser.id};
+        const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h'});
+        const loginResponse = new LoginResponse(token, retrievedUser.id)
+        return loginResponse;
     }
 }
 export default UserServices;
