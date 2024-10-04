@@ -25,5 +25,5 @@ class UserRepository implements IUserRepository{
         if(!retrievedUser) throw new NotFoundException('Usuario no encontrado');
         return retrievedUser;
     }
-
 }
+export default UserRepository;
