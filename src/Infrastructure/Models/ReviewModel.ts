@@ -1,5 +1,5 @@
 import mongoose, { model, Schema } from "mongoose";
-import IReviewDocument from "../Interfaces/IReviewRepository";
+import IReviewDocument from "../Interfaces/IReviewDocument";
 const reviewSchema: Schema<IReviewDocument> = new mongoose.Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true},
     videogame: { type: Schema.Types.ObjectId, ref: 'Videogame', required: true},
