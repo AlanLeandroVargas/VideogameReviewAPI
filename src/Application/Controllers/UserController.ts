@@ -22,8 +22,8 @@ class UserController{
     }
     async deleteUser( req: Request, res: Response, next: NextFunction ): Promise<void>{
         try{
-            const { userId } = req.body;
-            await this.userServices.deleteUser(userId);
+            const userId : string = req.body.userId;
+            await this.userServices.deleteUser(new mongoose.Types.ObjectId(userId));
             res.status(200).send('Usuario eliminado con exito');
         }
         catch(error){
