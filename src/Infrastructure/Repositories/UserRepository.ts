@@ -19,8 +19,10 @@ class UserRepository implements IUserRepository{
         if(!retrievedUser) throw new NotFoundException('Usuario no encontrado');
         return retrievedUser;
     }
-    findUserByUsername(username: string): Promise<User> {
-        throw new Error("Method not implemented.");
+    async findUserByUsername(username: string): Promise<User> {
+        const retrievedUser = await userModel.findOne({username: username});
+        if(!retrievedUser) throw new NotFoundException('Usuario no encontrado');
+        return retrievedUser;
     }
 
 }
