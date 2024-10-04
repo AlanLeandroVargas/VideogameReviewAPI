@@ -8,6 +8,11 @@ class UserController{
     private userServices: IUserServices;
     constructor(userServices: IUserServices){
         this.userServices = userServices;
+        this.createUser = this.createUser.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
+        this.findUserById = this.findUserById.bind(this);
+        this.findUserByUsername = this.findUserByUsername.bind(this);
+        this.login = this.login.bind(this);
     }
     async createUser( req: Request, res: Response, next: NextFunction ): Promise<void>{
         try{
