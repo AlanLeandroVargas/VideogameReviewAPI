@@ -8,6 +8,11 @@ class VideogameController{
     private videogameServices: IVideogameServices;
     constructor(videogameServices: IVideogameServices){
         this.videogameServices = videogameServices;
+        this.createVideogame = this.createVideogame.bind(this);
+        this.deleteVideogame = this.deleteVideogame.bind(this);
+        this.findVideogameById = this.findVideogameById.bind(this);
+        this.findVideogameByName = this.findVideogameByName.bind(this);
+
     }
     async createVideogame( req: Request, res: Response, next: NextFunction ): Promise<void>{
         try{
