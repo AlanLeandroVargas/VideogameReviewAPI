@@ -11,8 +11,9 @@ class UserRepository implements IUserRepository{
         await createdUser.save();
         return createdUser;
     }
-    deleteUser(id: Types.ObjectId): Promise<User> {
-        throw new Error("Method not implemented.");
+    async deleteUser(id: Types.ObjectId): Promise<void> {
+        const deletedUser = await userModel.deleteOne({_id: id});
+        if(!deletedUser) throw new NotFoundException('Usuario no encontrado');
     }
     async findUserById(id: Types.ObjectId): Promise<User> {
         const retrievedUser = await userModel.findById(id);

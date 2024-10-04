@@ -4,7 +4,7 @@ import CreateUserRequest from "../../Application/Requests/CreateUserRequest";
 
 interface IUserRepository{
     createUser(createUserRequest: CreateUserRequest): Promise<User>;
-    deleteUser(id: mongoose.Types.ObjectId): Promise<User>;
+    deleteUser(id: mongoose.Types.ObjectId): Promise<void>;
     findUserById(id: mongoose.Types.ObjectId): Promise<User>;
     findUserByUsername(username: string): Promise<User>;
 }
