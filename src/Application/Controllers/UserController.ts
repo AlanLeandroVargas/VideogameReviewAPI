@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import IUserServices from '../../Domain/Interfaces/IUserServices';
 import CreateUserRequest from '../Requests/CreateUserRequest';
 import LoginRequest from '../Requests/LoginRequest';
+import mongoose from 'mongoose';
 
 class UserController{
     private userServices: IUserServices;
@@ -31,8 +32,8 @@ class UserController{
     }
     async findUserById( req: Request, res: Response, next: NextFunction ): Promise<void>{
         try{
-            const { userId } = req.body;
-            const retrievedUser = await this.userServices.findUserById(userId);
+            const { userId } = req.params;
+            const retrievedUser = await this.userServices.findUserById(new mongoose.Types.ObjectId(userId));
             res.status(200).send(retrievedUser);
         }
         catch(error){
@@ -41,7 +42,7 @@ class UserController{
     }
     async findUserByUsername( req: Request, res: Response, next: NextFunction ): Promise<void>{
         try{
-            const { username } = req.body;
+            const { username } = req.params;
             const retrievedUser = await this.userServices.findUserByUsername(username);
             res.status(200).send(retrievedUser);
         }
