@@ -7,6 +7,12 @@ class ReviewController {
     private reviewServices: IReviewServices;
     constructor(reviewServices: IReviewServices) {
         this.reviewServices = reviewServices;
+        this.createReview = this.createReview.bind(this);
+        this.deleteReview = this.deleteReview.bind(this);
+        this.findReviewById = this.findReviewById.bind(this);
+        this.findReviewByAuthor = this.findReviewByAuthor.bind(this);
+        this.findReviewByVideogameId = this.findReviewByVideogameId.bind(this);
+        
     }
     async createReview(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
