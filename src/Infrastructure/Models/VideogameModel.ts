@@ -1,6 +1,7 @@
 import mongoose, { model, Schema } from "mongoose";
 import Videogame from "../../Domain/Entities/Videogame";
-const videogameSchema: Schema<Videogame> = new mongoose.Schema({
+import IVideogameDocument from "../Interfaces/IVideogameDocument";
+const videogameSchema: Schema<IVideogameDocument> = new mongoose.Schema({
     name: { type: String, required: true},
     genre: { type: [String], required: true},
     description: { type: String, required: true},
@@ -9,6 +10,6 @@ const videogameSchema: Schema<Videogame> = new mongoose.Schema({
     releaseDate: { type: Date, required: true }
 })
 
-const videogameModel = model<Videogame>("Videogame", videogameSchema);
+const videogameModel = model<IVideogameDocument>("Videogame", videogameSchema);
 
 export default videogameModel;
