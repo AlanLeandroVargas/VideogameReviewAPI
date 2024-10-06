@@ -8,6 +8,6 @@ interface IVideogameRepository{
     findVideogameById(id: mongoose.Types.ObjectId): Promise<Videogame>;
     findVideogameByName(name: string): Promise<Videogame>;
     findVideogamesByGenre(genre: string): Promise<Array<Videogame>>;
-    updateAverage(videogameId: mongoose.Types.ObjectId, average: number): Promise<void>;
+    updateAverage(videogameId: mongoose.Types.ObjectId, average: number, amountOfReviews: number): Promise<void>;
 }
 export default IVideogameRepository;

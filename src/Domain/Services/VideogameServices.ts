@@ -34,7 +34,7 @@ class VideogameServices implements IVideogameServices{
         const currentAmount = reviews.length;
         const totalScore = reviews.reduce((total, currentReview) => total + currentReview.puntuation, 0)
         const average = Math.floor((totalScore / currentAmount) * 10) / 10;
-        this.videogameRepository.updateAverage(videogameId, average);
+        this.videogameRepository.updateAverage(videogameId, average, currentAmount);
     }
 }
 export default VideogameServices;
