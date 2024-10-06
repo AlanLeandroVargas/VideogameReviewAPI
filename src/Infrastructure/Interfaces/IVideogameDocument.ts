@@ -6,8 +6,8 @@ interface IVideogameDocument extends Document{
     genre: Array<string>;
     description: string;
     imageUrl?: string;
-    averagePuntuation: Number;
+    averagePuntuation: number;
     releaseDate: Date;
-    amountOfReviews: Number;
+    amountOfReviews: number;
 }
 export default IVideogameDocument;

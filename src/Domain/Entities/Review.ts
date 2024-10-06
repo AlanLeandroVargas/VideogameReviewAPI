@@ -7,9 +7,9 @@ class Review {
     author: User['_id'];
     videogame: Videogame['_id'];
     comment: string;
-    puntuation: Number;
+    puntuation: number;
     createdAt: Date;
-    constructor(author: mongoose.Types.ObjectId, videogame: mongoose.Types.ObjectId, comment: string, puntuation: Number, createdAt: Date){
+    constructor(author: mongoose.Types.ObjectId, videogame: mongoose.Types.ObjectId, comment: string, puntuation: number, createdAt: Date){
         this.author = author;
         this.videogame = videogame;
         this.comment = comment;

@@ -7,7 +7,7 @@ interface IReviewDocument extends Document{
     author: User['_id'];
     videogame: Videogame['_id'];
     comment: string;
-    puntuation: Number;
+    puntuation: number;
     createdAt: Date;
 }
 export default IReviewDocument;
