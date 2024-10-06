@@ -3,8 +3,10 @@ import CreateVideogameRequest from "../../Application/Requests/CreateVideogameRe
 import Videogame from "../Entities/Videogame";
 import IVideogameServices from "../Interfaces/IVideogameServices";
 import IVideogameRepository from "../../Infrastructure/Interfaces/IVideogameRepository";
+import Review from "../Entities/Review";
+import ConflictException from "../../Application/Exceptions/ConflictException";
 
-class VideogameServices implements IVideogameServices{
+class VideogameServices implements IVideogameServices{    
     private videogameRepository: IVideogameRepository;
     constructor(videogameRepository: IVideogameRepository){
         this.videogameRepository = videogameRepository;
@@ -23,6 +25,12 @@ class VideogameServices implements IVideogameServices{
     async findVideogameByName(name: string): Promise<Videogame> {
         const retrievedVideogame = await this.videogameRepository.findVideogameByName(name);
         return retrievedVideogame;
+    }
+    async updateAverage(videogameId: Types.ObjectId, reviews: Array<Review>): Promise<void>{
+        const currentAmount = reviews.length;
+        const totalScore = reviews.reduce((total, currentReview) => total + currentReview.puntuation, 0)
+        const average = Math.floor((totalScore / currentAmount) * 10) / 10;
+        this.videogameRepository.updateAverage(videogameId, average);
     }
 }
 export default VideogameServices;

@@ -3,14 +3,21 @@ import CreateReviewRequest from "../../Application/Requests/CreateReviewRequest"
 import Review from "../Entities/Review";
 import IReviewServices from "../Interfaces/IReviewServices";
 import IReviewRepository from "../../Infrastructure/Interfaces/IReviewRepository";
+import IVideogameServices from "../Interfaces/IVideogameServices";
+import ConflictException from "../../Application/Exceptions/ConflictException";
 
 class ReviewServices implements IReviewServices{
     private reviewRepository: IReviewRepository;
-    constructor(reviewRepository: IReviewRepository){
+    private videogameServices: IVideogameServices;
+    constructor(reviewRepository: IReviewRepository, videogameServices: IVideogameServices){
         this.reviewRepository = reviewRepository;
+        this.videogameServices = videogameServices;
     }
     async createReview(createReviewRequest: CreateReviewRequest): Promise<Review> {
         const createdReview = await this.reviewRepository.createReview(createReviewRequest);
+        if(!createdReview.videogame) throw new ConflictException('La reseña no tiene id de videojuego');
+        const reviews = await this.findReviewByVideogameId(createdReview.videogame);
+        await this.videogameServices.updateAverage(createdReview.videogame, reviews);
         return createdReview;
     }
     async deleteReview(id: Types.ObjectId): Promise<void> {

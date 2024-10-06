@@ -7,5 +7,6 @@ interface IVideogameRepository{
     deleteVideogame(id: mongoose.Types.ObjectId): Promise<void>;
     findVideogameById(id: mongoose.Types.ObjectId): Promise<Videogame>;
     findVideogameByName(name: string): Promise<Videogame>;
+    updateAverage(videogameId: mongoose.Types.ObjectId, average: number): Promise<void>;
 }
 export default IVideogameRepository;

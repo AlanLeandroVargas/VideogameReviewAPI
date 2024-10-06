@@ -25,5 +25,9 @@ class VideoGameRepository implements IVideogameRepository {
         if (!retrievedVideogame) throw new NotFoundException('Videojuego no encontrado');
         return retrievedVideogame;
     }
+    async updateAverage(videogameId: Types.ObjectId , average: number): Promise<void>{
+        await videogameModel.findOneAndUpdate({_id: videogameId}, {averagePuntuation: average});
+    }
+
 }
 export default VideoGameRepository;
