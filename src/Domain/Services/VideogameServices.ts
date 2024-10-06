@@ -4,7 +4,6 @@ import Videogame from "../Entities/Videogame";
 import IVideogameServices from "../Interfaces/IVideogameServices";
 import IVideogameRepository from "../../Infrastructure/Interfaces/IVideogameRepository";
 import Review from "../Entities/Review";
-import ConflictException from "../../Application/Exceptions/ConflictException";
 
 class VideogameServices implements IVideogameServices{    
     private videogameRepository: IVideogameRepository;
@@ -26,6 +25,11 @@ class VideogameServices implements IVideogameServices{
         const retrievedVideogame = await this.videogameRepository.findVideogameByName(name);
         return retrievedVideogame;
     }
+    async findVideogamesByGenre(genre: string): Promise<Array<Videogame>>{
+        const retrievedVideogames = await this.videogameRepository.findVideogamesByGenre(genre);
+        return retrievedVideogames;
+    }
+
     async updateAverage(videogameId: Types.ObjectId, reviews: Array<Review>): Promise<void>{
         const currentAmount = reviews.length;
         const totalScore = reviews.reduce((total, currentReview) => total + currentReview.puntuation, 0)

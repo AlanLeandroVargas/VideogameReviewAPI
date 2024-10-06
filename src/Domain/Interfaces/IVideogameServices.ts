@@ -8,6 +8,7 @@ interface IVideogameServices{
     deleteVideogame(id: mongoose.Types.ObjectId): Promise<void>;
     findVideogameById(id: mongoose.Types.ObjectId): Promise<Videogame>;
     findVideogameByName(name: string): Promise<Videogame>;
+    findVideogamesByGenre(genre: string): Promise<Array<Videogame>>;
     updateAverage(videogameId: mongoose.Types.ObjectId, reviews: Array<Review>): Promise<void>;
 }
 export default IVideogameServices

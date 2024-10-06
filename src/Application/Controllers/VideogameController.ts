@@ -12,7 +12,7 @@ class VideogameController{
         this.deleteVideogame = this.deleteVideogame.bind(this);
         this.findVideogameById = this.findVideogameById.bind(this);
         this.findVideogameByName = this.findVideogameByName.bind(this);
-
+        this.findVideogamesByGenre = this.findVideogamesByGenre.bind(this);
     }
     async createVideogame( req: Request, res: Response, next: NextFunction ): Promise<void>{
         try{
@@ -55,6 +55,11 @@ class VideogameController{
         catch(error){
             next(error);
         }       
+    }
+    async findVideogamesByGenre( req: Request, res: Response, next: NextFunction ): Promise<void>{
+        const { genre } = req.params;
+        const retrievedVideogames = await this.videogameServices.findVideogamesByGenre(genre);
+        res.status(200).send(retrievedVideogames);
     }
 }
 export default VideogameController;

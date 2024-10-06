@@ -25,6 +25,11 @@ class VideoGameRepository implements IVideogameRepository {
         if (!retrievedVideogame) throw new NotFoundException('Videojuego no encontrado');
         return retrievedVideogame;
     }
+    async findVideogamesByGenre(genre: string): Promise<Array<Videogame>>{
+        const retrievedVideogames = await videogameModel.find({genre: {$in: [genre]}});
+        if(!retrievedVideogames) throw new NotFoundException('No se encontraron videojuegos con ese genero');
+        return retrievedVideogames;
+    }
     async updateAverage(videogameId: Types.ObjectId , average: number): Promise<void>{
         await videogameModel.findOneAndUpdate({_id: videogameId}, {averagePuntuation: average});
     }

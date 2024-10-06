@@ -11,5 +11,5 @@ videogameRouter.post('/videogame', videogameController.createVideogame);
 videogameRouter.delete('/videogame', videogameController.deleteVideogame);
 videogameRouter.get('/videogame/id/:videogameId', videogameController.findVideogameById);
 videogameRouter.get('/videogame/name/:videogameName', videogameController.findVideogameByName);
-
+videogameRouter.get('/videogame/genre/:genre', videogameController.findVideogamesByGenre);
 export default videogameRouter;
