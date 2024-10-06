@@ -8,5 +8,6 @@ interface IVideogameDocument extends Document{
     imageUrl?: string;
     averagePuntuation: Number;
     releaseDate: Date;
+    amountOfReviews: Number;
 }
 export default IVideogameDocument;

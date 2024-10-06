@@ -8,12 +8,14 @@ class Videogame {
     imageUrl?: string;
     averagePuntuation: Number;
     releaseDate: Date;
-    constructor(name: string, genre: Array<string>, description: string, averagePuntuation: Number, releaseDate: Date, imageUrl?: string) {
+    amountOfReviews: Number;
+    constructor(name: string, genre: Array<string>, description: string, averagePuntuation: Number, releaseDate: Date, amountOfReviews: Number, imageUrl?: string) {
         this.name = name;
         this.genre = genre;
         this.description = description;
         this.averagePuntuation = averagePuntuation;
         this.releaseDate = releaseDate;
+        this.amountOfReviews = amountOfReviews;
         this.imageUrl = imageUrl;
     }
 }

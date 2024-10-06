@@ -6,7 +6,8 @@ const videogameSchema: Schema<IVideogameDocument> = new mongoose.Schema({
     description: { type: String, required: true},
     imageUrl: { type: String },
     averagePuntuation: { type: Number, required: true, default: 0},
-    releaseDate: { type: Date, required: true }
+    releaseDate: { type: Date, required: true },
+    amountOfReviews: { type: Number, default: 0}
 })
 
 const videogameModel = model<IVideogameDocument>("Videogame", videogameSchema);
