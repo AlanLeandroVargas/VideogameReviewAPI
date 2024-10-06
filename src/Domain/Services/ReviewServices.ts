@@ -46,9 +46,15 @@ class ReviewServices implements IReviewServices{
         const reviewResponses = await Promise.all(retrievedReviews.map(async (review) => {
             if(!review.author) throw new ConflictException('La reseña no tiene autor');
             const author = await this.userServices.findUserById(review.author);
-            return new ReviewResponse(author.username, review.createdAt, review.comment);
+            const formattedDate = this.formatDate(review.createdAt);
+            return new ReviewResponse(author.username, formattedDate, review.comment);
         }))
         return reviewResponses;
+    }
+    formatDate(inputDate: Date){
+        const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+        const formattedDate = inputDate.toLocaleDateString('en-US', options).toUpperCase();
+        return formattedDate;
     }
 }
 export default ReviewServices;
