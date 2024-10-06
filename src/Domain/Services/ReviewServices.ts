@@ -47,7 +47,7 @@ class ReviewServices implements IReviewServices{
             if(!review.author) throw new ConflictException('La reseña no tiene autor');
             const author = await this.userServices.findUserById(review.author);
             const formattedDate = this.formatDate(review.createdAt);
-            return new ReviewResponse(author.username, formattedDate, review.comment);
+            return new ReviewResponse(author.username, formattedDate, review.comment, review.puntuation);
         }))
         return reviewResponses;
     }
