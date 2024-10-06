@@ -12,7 +12,7 @@ class ReviewController {
         this.findReviewById = this.findReviewById.bind(this);
         this.findReviewByAuthor = this.findReviewByAuthor.bind(this);
         this.findReviewByVideogameId = this.findReviewByVideogameId.bind(this);
-        
+        this.findReviewByVideogameName = this.findReviewByVideogameName.bind(this);
     }
     async createReview(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
@@ -65,5 +65,16 @@ class ReviewController {
             next(error);
         }
     }
+    async findReviewByVideogameName(req: Request, res: Response, next: NextFunction): Promise<void>{
+        try{
+            const { videogameName } = req.params;
+            const retrievedReviews = await this.reviewServices.findReviewByVideogameName(videogameName);
+            res.status(200).send(retrievedReviews);
+        }
+        catch(error){
+            next(error);
+        }
+    }
+    
 }
 export default ReviewController;

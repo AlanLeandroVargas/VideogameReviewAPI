@@ -5,13 +5,17 @@ import IReviewServices from "../Interfaces/IReviewServices";
 import IReviewRepository from "../../Infrastructure/Interfaces/IReviewRepository";
 import IVideogameServices from "../Interfaces/IVideogameServices";
 import ConflictException from "../../Application/Exceptions/ConflictException";
+import ReviewResponse from "../../Application/Responses/ReviewResponse";
+import IUserServices from "../Interfaces/IUserServices";
 
 class ReviewServices implements IReviewServices{
     private reviewRepository: IReviewRepository;
     private videogameServices: IVideogameServices;
-    constructor(reviewRepository: IReviewRepository, videogameServices: IVideogameServices){
+    private userServices: IUserServices;
+    constructor(reviewRepository: IReviewRepository, videogameServices: IVideogameServices, userServices: IUserServices){
         this.reviewRepository = reviewRepository;
         this.videogameServices = videogameServices;
+        this.userServices = userServices;
     }
     async createReview(createReviewRequest: CreateReviewRequest): Promise<Review> {
         const createdReview = await this.reviewRepository.createReview(createReviewRequest);
@@ -34,6 +38,17 @@ class ReviewServices implements IReviewServices{
     async findReviewByVideogameId(id: Types.ObjectId): Promise<Array<Review>> {
         const retrievedReviews = await this.reviewRepository.findReviewByVideogameId(id);
         return retrievedReviews;
+    }
+    async findReviewByVideogameName(name: string): Promise<Array<ReviewResponse>>{
+        const retrievedVideogame = await this.videogameServices.findVideogameByName(name);
+        if(!retrievedVideogame._id) throw new ConflictException('El videojuego no tiene id');
+        const retrievedReviews = await this.findReviewByVideogameId(retrievedVideogame._id);
+        const reviewResponses = await Promise.all(retrievedReviews.map(async (review) => {
+            if(!review.author) throw new ConflictException('La reseña no tiene autor');
+            const author = await this.userServices.findUserById(review.author);
+            return new ReviewResponse(author.username, review.createdAt, review.comment);
+        }))
+        return reviewResponses;
     }
 }
 export default ReviewServices;
