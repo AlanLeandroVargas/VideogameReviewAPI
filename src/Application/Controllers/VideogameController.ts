@@ -13,6 +13,7 @@ class VideogameController{
         this.findVideogameById = this.findVideogameById.bind(this);
         this.findVideogameByName = this.findVideogameByName.bind(this);
         this.findVideogamesByGenre = this.findVideogamesByGenre.bind(this);
+        this.searchVideogamesByName = this.searchVideogamesByName.bind(this);
     }
     async createVideogame( req: Request, res: Response, next: NextFunction ): Promise<void>{
         try{
@@ -59,6 +60,11 @@ class VideogameController{
     async findVideogamesByGenre( req: Request, res: Response, next: NextFunction ): Promise<void>{
         const { genre } = req.params;
         const retrievedVideogames = await this.videogameServices.findVideogamesByGenre(genre);
+        res.status(200).send(retrievedVideogames);
+    }
+    async searchVideogamesByName( req: Request, res: Response, next: NextFunction ): Promise<void>{
+        const { search } = req.query;
+        const retrievedVideogames = await this.videogameServices.searchVideogamesByName(search as string);
         res.status(200).send(retrievedVideogames);
     }
 }

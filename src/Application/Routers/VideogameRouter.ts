@@ -12,4 +12,5 @@ videogameRouter.delete('/videogame', videogameController.deleteVideogame);
 videogameRouter.get('/videogame/id/:videogameId', videogameController.findVideogameById);
 videogameRouter.get('/videogame/name/:videogameName', videogameController.findVideogameByName);
 videogameRouter.get('/videogame/genre/:genre', videogameController.findVideogamesByGenre);
+videogameRouter.get('/videogame/search', videogameController.searchVideogamesByName);
 export default videogameRouter;

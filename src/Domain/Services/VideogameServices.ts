@@ -36,5 +36,9 @@ class VideogameServices implements IVideogameServices{
         const average = Math.floor((totalScore / currentAmount) * 10) / 10;
         this.videogameRepository.updateAverage(videogameId, average, currentAmount);
     }
+    async searchVideogamesByName(search: string): Promise<Array<Videogame>>{
+        const retrievedVideogames = await this.videogameRepository.searchVideogamesByName(search);
+        return retrievedVideogames;
+    }
 }
 export default VideogameServices;

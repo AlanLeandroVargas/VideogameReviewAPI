@@ -10,5 +10,6 @@ interface IVideogameServices{
     findVideogameByName(name: string): Promise<Videogame>;
     findVideogamesByGenre(genre: string): Promise<Array<Videogame>>;
     updateAverage(videogameId: mongoose.Types.ObjectId, reviews: Array<Review>): Promise<void>;
+    searchVideogamesByName(search: string): Promise<Array<Videogame>>
 }
 export default IVideogameServices
