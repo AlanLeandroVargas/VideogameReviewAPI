@@ -35,9 +35,9 @@ class UserServices implements IUserServices{
         const retrievedUser = await this.userRepository.findUserByUsername(loginRequest.username);
         const isMatch = await retrievedUser.comparePassword(loginRequest.password);
         if(!isMatch){throw new ValidationException("Credenciales invalidas")};
-        const payload = { id: retrievedUser.id};
+        const payload = { id: retrievedUser.id, role: retrievedUser.role};
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '24h'});
-        const loginResponse = new LoginResponse(token, retrievedUser.id, retrievedUser.role);
+        const loginResponse = new LoginResponse(token, retrievedUser.id);
         return loginResponse;
     }
 }
