@@ -6,6 +6,7 @@ import VideoGameRepository from "../../Infrastructure/Repositories/VideogameRepo
 import VideogameServices from "../../Domain/Services/VideogameServices";
 import UserRepository from "../../Infrastructure/Repositories/UserRepository";
 import UserServices from "../../Domain/Services/UserServices";
+import { authenticateJwt } from "../Middleware/Passport";
 const reviewRouter = Router();
 const videogameRepository = new VideoGameRepository();
 const videogameServices = new VideogameServices(videogameRepository);
@@ -14,8 +15,8 @@ const userServices = new UserServices(userRepository);
 const reviewRepository = new ReviewRepository();
 const reviewServices = new ReviewServices(reviewRepository, videogameServices, userServices);
 const reviewController = new ReviewController(reviewServices);
-reviewRouter.post('/review', reviewController.createReview);
-reviewRouter.delete('/review', reviewController.deleteReview);
+reviewRouter.post('/review', authenticateJwt, reviewController.createReview);
+reviewRouter.delete('/review', authenticateJwt, reviewController.deleteReview);
 reviewRouter.get('/review/id/:reviewId', reviewController.findReviewById);
 reviewRouter.get('/review/author/:author', reviewController.findReviewByAuthor);
 reviewRouter.get('/review/videogame/:videogameId', reviewController.findReviewByVideogameId);

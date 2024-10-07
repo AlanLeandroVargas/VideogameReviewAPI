@@ -3,6 +3,8 @@ import { Request, Response, NextFunction } from 'express';
 import IVideogameServices from "../../Domain/Interfaces/IVideogameServices";
 import CreateVideogameRequest from '../Requests/CreateVideogameRequest';
 import mongoose from 'mongoose';
+import IUser from '../Interfaces/IUser';
+import UnauthorizedException from '../Exceptions/UnauthorizedException';
 
 class VideogameController{
     private videogameServices: IVideogameServices;
@@ -17,6 +19,8 @@ class VideogameController{
     }
     async createVideogame( req: Request, res: Response, next: NextFunction ): Promise<void>{
         try{
+            const user = req.user as IUser;
+            if(user.role != 'admin') throw new UnauthorizedException('No tiene los permisos para agregar un videojuego.');
             const { name, genre, description, imageUrl, releaseDate}: CreateVideogameRequest = req.body;
             const createVideogameRequest = new CreateVideogameRequest(name, genre, description, releaseDate, imageUrl);
             const createdVideogame = await this.videogameServices.createVideogame(createVideogameRequest);
